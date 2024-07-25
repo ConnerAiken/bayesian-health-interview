@@ -1,0 +1,26 @@
+#app-content {
+  .city {
+    margin: 2em;
+
+    .city-sidebar {
+      .city-information {
+        background-color: yellow;
+        p {
+          font-size: 1.5em;
+        }
+      }
+      .city-current-weather {
+        background-color: red;
+        p {
+          font-size: 1.5em;
+        }
+      }
+    }
+    .city-historical-data {
+      background-color: green;
+      h1 {
+        font-size: 2em;
+      }
+    }
+  }
+}
