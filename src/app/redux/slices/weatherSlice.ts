@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../store";
+import { RootState } from "../store";
 import { fetchCityWeatherCurrent, fetchCityWeatherHistorical, fetchStations } from "../services/weatherApi";
 import { City, PositionMovePayload, WeatherState } from "./weatherSlice.types";
-import { Dispatch } from "redux";
 
 const initialState: WeatherState = {
   cities: [],
@@ -82,5 +81,7 @@ export const weatherSlice = createSlice({
 export const { handlePositionMove } = weatherSlice.actions;
 export const selectStations = (state: RootState) => state.weather.stations;
 export const selectCities = (state: RootState) => state.weather.cities;
+export const selectStationsStatus = (state: RootState) => state.weather.stationsStatus;
+export const selectAdditionsStatus = (state: RootState) => state.weather.additionsStatus;
 
 export default weatherSlice.reducer;
