@@ -1,57 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.scss';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-function App() {
+function App() { 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Container id="app-container">
+      <Row id="app-header">
+        <Col xs={8} id="app-title" style={{backgroundColor: 'grey'}}>
+          <h1>Weather Report 2000</h1>
+        </Col>
+        <Col xs={4} id="app-actions" style={{backgroundColor: 'white'}}>
+          <h1>Add City Section</h1>
+        </Col>
+      </Row>
+      <Row id="app-content" style={{backgroundColor: 'yellow'}}> 
+        <Col xs={12}>
+          {[1, 2, 3, 4, 5].map((i) => (
+              <Row className="city"> 
+                <Col xs={4} className="city-sidebar" style={{backgroundColor: 'green'}}>
+                  <Row>
+                    <Col xs={12} className="city-information">
+                      <p>City {i}</p>
+                    </Col>
+                    <Col xs={12} className="city-current-weather">
+                      <p>Current Weather</p>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col xs={8} className="city-historical-data" style={{backgroundColor: 'blue'}}>
+                  <h1>Historical Data</h1>
+                </Col>
+            </Row>
+          ))}
+        </Col> 
+      </Row>
+    </Container> 
   );
 }
 
