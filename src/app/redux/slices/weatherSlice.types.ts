@@ -1,4 +1,5 @@
 export interface WeatherReport {
+  [key: string]: any;
   time: string;
   time_local: string;
   temperature?: number;
