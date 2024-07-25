@@ -1,32 +1,44 @@
 #app-container {
-  #app-header { 
-      #app-title {
+  border: 1px solid grey;
 
-      }
-      #app-actions {
+  #app-header {
+    margin-top: 1em;
+    margin-bottom: 1em;
 
-      }
+    #app-title {
+      background-color: blue;
+    }
+    #app-actions {
+      background-color: purple;
+    }
   }
+
   #app-content {
-    
+    border: 1px solid grey;
+
     .city {
+      margin: 2em;
+
       .city-sidebar {
-          .city-information {
-              p {
-                  font-size: 1.5em;
-              }
+        .city-information {
+          background-color: yellow;
+          p {
+            font-size: 1.5em;
           }
-          .city-current-weather {
-              p {
-                  font-size: 1.5em;
-              }
+        }
+        .city-current-weather {
+          background-color: red;
+          p {
+            font-size: 1.5em;
           }
+        }
       }
       .city-historical-data {
-          h1 {
-              font-size: 2em;
-          }
+        background-color: green;
+        h1 {
+          font-size: 2em;
+        }
       }
-  }
+    }
   }
 }
