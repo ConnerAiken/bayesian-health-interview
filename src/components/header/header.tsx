@@ -26,8 +26,6 @@ const Header = () => {
     dispatch(initializeWeatherDashboard());
   }, []);
 
-  console.log(cities);
-
   return (
     <Row id="app-header">
       <Col xs={7} id="app-title">

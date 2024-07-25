@@ -21,12 +21,7 @@ export interface City {
   order: number;
   name: string;
   current: WeatherReport;
-  historical: {
-    meta: {
-      source: string;
-    };
-    data: WeatherReport[];
-  };
+  historical: WeatherReport[];
 }
 
 export interface Station {
@@ -39,4 +34,9 @@ export interface WeatherState {
   stations: Station[];
   stationsStatus: "awaiting" | "idle" | "loading" | "failed";
   additionsStatus: "awaiting" | "idle" | "loading" | "failed";
+}
+
+export interface PositionMovePayload {
+  direction: "up" | "down";
+  city: City;
 }

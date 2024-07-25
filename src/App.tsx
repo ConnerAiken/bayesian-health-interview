@@ -15,11 +15,9 @@ function App() {
       <Header />
       <Row id="app-content">
         <Col xs={12}>
-          {cities
-            .sort((a, b) => a.order - b.order)
-            .map((city) => (
-              <CityWeather key={city.id} city={city} />
-            ))}
+          {cities.map((city) => (
+            <CityWeather key={city.id} city={city} />
+          ))}
         </Col>
       </Row>
     </Container>
