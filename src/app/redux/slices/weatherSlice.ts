@@ -72,7 +72,7 @@ export const weatherSlice = createSlice({
         state.cities.push({
           id: action.payload.cityId,
           order: state.cities.length + 1,
-          name: state.stations.find((station) => station.id === action.payload.current.id)?.name || "Unknown",
+          name: state.stations.find((station) => station.id === action.payload.cityId)?.name || "Unknown",
           current: action.payload.current,
           historical: action.payload.historical,
         });
