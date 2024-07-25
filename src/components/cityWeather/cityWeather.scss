@@ -1,6 +1,8 @@
 #app-content {
   .city {
     margin: 2em;
+    border: 1px solid grey;
+    padding: 1em;
 
     .city-sidebar {
       .city-information {
@@ -17,6 +19,10 @@
     .city-historical-data {
       h1 {
         font-size: 2em;
+      }
+
+      .historical-data-card {
+        margin-top: 0.5em;
       }
     }
   }

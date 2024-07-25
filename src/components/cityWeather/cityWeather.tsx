@@ -60,23 +60,23 @@ const CityWeather = (CityProps: CityWeatherProps) => {
       <Col xs={8} className="city-historical-data">
         <h1>Historical Data</h1>
         {city.historical.map((historical) => (
-          <Card>
-            <Card.Header>
-              <Card.Title>{historical.time}</Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Table striped bordered hover>
-                <tbody>
-                  {Object.keys(historical).map((key) => (
-                    <tr key={city.current + "-historical-" + key}>
-                      <td>{key}</td>
-                      <td>{city.current[key]}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
+          <>
+            <Table striped bordered hover size={"small"} className="historical-data-table">
+              <tbody>
+                <tr>
+                  <td>Time</td>
+                  <td>{historical.time}</td>
+                </tr>
+                {["temperature", "pressure", "winddirection", "humidity"].map((key) => (
+                  <tr key={city.current + "-historical-" + key}>
+                    <td>{key}</td>
+                    <td>{city.current[key]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <hr />{" "}
+          </>
         ))}
       </Col>
     </Row>

@@ -24,7 +24,7 @@ export const addCityToDashboard = createAsyncThunk("weather/addCity", async (cit
   return {
     cityId,
     current: currentWeather,
-    historical: historicalWeather.data.slice(0, 5),
+    historical: historicalWeather.data.slice(0, 3),
   };
 });
 
