@@ -21,7 +21,12 @@ export interface City {
   order: number;
   name: string;
   current: WeatherReport;
-  historical: WeatherReport[];
+  historical: {
+    meta: {
+      source: string;
+    };
+    data: WeatherReport[];
+  };
 }
 
 export interface Station {

@@ -40,6 +40,25 @@ const CityWeather = (CityProps: CityWeatherProps) => {
       </Col>
       <Col xs={8} className="city-historical-data">
         <h1>Historical Data</h1>
+        {city.historical.data.map((historical) => (
+          <Card>
+            <Card.Header>
+              <Card.Title>{historical.time}</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <Table striped bordered hover>
+                <tbody>
+                  {Object.keys(historical).map((key) => (
+                    <tr>
+                      <td>{key}</td>
+                      <td>{city.current[key]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Card.Body>
+          </Card>
+        ))}
       </Col>
     </Row>
   );
