@@ -32,8 +32,6 @@ export interface Station {
 export interface WeatherState {
   cities: City[];
   stations: Station[];
-  stationsStatus: "awaiting" | "idle" | "loading" | "failed";
-  additionsStatus: "awaiting" | "idle" | "loading" | "failed";
 }
 
 export interface PositionMovePayload {

@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./header.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/redux/hooks";
 import {
   addCityToDashboard,
@@ -24,7 +24,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(initializeWeatherDashboard());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Row id="app-header">

@@ -6,8 +6,6 @@ import { City, PositionMovePayload, WeatherState } from "./weatherSlice.types";
 const initialState: WeatherState = {
   cities: [],
   stations: [],
-  additionsStatus: "awaiting",
-  stationsStatus: "awaiting",
 };
 
 export const initializeWeatherDashboard = createAsyncThunk("weather/initialize", async () => {
@@ -48,22 +46,11 @@ export const weatherSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Initilization thunk
-      .addCase(initializeWeatherDashboard.pending, (state) => {
-        state.stationsStatus = "loading";
-      })
       .addCase(initializeWeatherDashboard.fulfilled, (state, action) => {
-        state.stationsStatus = "idle";
         state.stations = action.payload;
       })
-      .addCase(initializeWeatherDashboard.rejected, (state) => {
-        state.stationsStatus = "failed";
-      })
-      // Add city thunk
-      .addCase(addCityToDashboard.pending, (state) => {
-        state.additionsStatus = "loading";
-      })
+      // Add city thunktatus = "loading";
       .addCase(addCityToDashboard.fulfilled, (state, action) => {
-        state.additionsStatus = "idle";
         state.cities.push({
           id: action.payload.cityId,
           order: state.cities.length + 1,
@@ -71,9 +58,6 @@ export const weatherSlice = createSlice({
           current: action.payload.current,
           historical: action.payload.historical,
         });
-      })
-      .addCase(addCityToDashboard.rejected, (state) => {
-        state.additionsStatus = "failed";
       });
   },
 });
@@ -81,7 +65,5 @@ export const weatherSlice = createSlice({
 export const { handlePositionMove } = weatherSlice.actions;
 export const selectStations = (state: RootState) => state.weather.stations;
 export const selectCities = (state: RootState) => state.weather.cities;
-export const selectStationsStatus = (state: RootState) => state.weather.stationsStatus;
-export const selectAdditionsStatus = (state: RootState) => state.weather.additionsStatus;
 
 export default weatherSlice.reducer;

@@ -21,8 +21,6 @@ describe("weatherSlice reducer", () => {
   const initialState: WeatherState = {
     cities: [],
     stations: [],
-    additionsStatus: "awaiting",
-    stationsStatus: "awaiting",
   };
 
   it("should handle initial state", () => {
@@ -59,8 +57,6 @@ describe("weatherSlice reducer", () => {
         },
       ],
       stations: [],
-      additionsStatus: "awaiting",
-      stationsStatus: "awaiting",
     };
 
     const action = { city: { id: "2" }, direction: "up" };
@@ -83,8 +79,6 @@ describe("weatherSlice reducer", () => {
         { id: "3", order: 3, name: "City 3", current: { ...weatherExample }, historical: [] },
       ],
       stations: [],
-      additionsStatus: "awaiting",
-      stationsStatus: "awaiting",
     };
 
     const actual = weatherSlice(state, handlePositionMove(action as PositionMovePayload));
