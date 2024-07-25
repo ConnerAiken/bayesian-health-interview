@@ -3,10 +3,12 @@ import { RootState } from "../store";
 import { fetchCityWeatherCurrent, fetchCityWeatherHistorical, fetchStations } from "../services/weatherApi";
 import { City, PositionMovePayload, WeatherState } from "./weatherSlice.types";
 
-const initialState: WeatherState = {
-  cities: [],
-  stations: [],
-};
+const initialState: WeatherState = localStorage.getItem("state")
+  ? JSON.parse(localStorage.getItem("state") ?? '{"weather": {"cities":[], "stations": []}}').weather
+  : {
+      cities: [],
+      stations: [],
+    };
 
 export const initializeWeatherDashboard = createAsyncThunk("weather/initialize", async () => {
   const stations = await fetchStations();

@@ -6,9 +6,16 @@ import CityWeather from "./components/cityWeather/cityWeather";
 import "./App.scss";
 import { useAppSelector } from "./app/redux/hooks";
 import { selectCities } from "./app/redux/slices/weatherSlice";
+import { store } from "./app/redux/store";
 
 function App() {
   const cities = useAppSelector(selectCities);
+
+  store.subscribe(() => {
+    const state = store.getState();
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem("state", serializedState);
+  });
 
   return (
     <Container id="app-container">
