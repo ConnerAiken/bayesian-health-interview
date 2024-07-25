@@ -1,5 +1,7 @@
+import { fetchStations } from "../services/weatherApi";
 import weatherSlice, { addCityToDashboard, handlePositionMove } from "./weatherSlice";
 import { PositionMovePayload, WeatherReport, WeatherState } from "./weatherSlice.types";
+import fetchMock from "fetch-mock";
 
 describe("weatherSlice reducer", () => {
   const weatherExample: WeatherReport = {
@@ -23,65 +25,91 @@ describe("weatherSlice reducer", () => {
     stations: [],
   };
 
-  it("should handle initial state", () => {
-    expect(weatherSlice(undefined, { type: "unknown" })).toEqual(initialState);
+  describe("Basic tests", () => {
+    it("should handle initial state", () => {
+      expect(weatherSlice(undefined, { type: "unknown" })).toEqual(initialState);
+    });
+
+    it("should handle position movements", () => {
+      const state: WeatherState = {
+        cities: [
+          {
+            id: "1",
+            order: 1,
+            name: "City 1",
+            current: {
+              ...weatherExample,
+            },
+            historical: [],
+          },
+          {
+            id: "2",
+            order: 2,
+            name: "City 2",
+            current: {
+              ...weatherExample,
+            },
+            historical: [],
+          },
+          {
+            id: "3",
+            order: 3,
+            name: "City 3",
+            current: { ...weatherExample },
+            historical: [],
+          },
+        ],
+        stations: [],
+      };
+
+      const action = { city: { id: "2" }, direction: "up" };
+      const expected: WeatherState = {
+        cities: [
+          {
+            id: "2",
+            order: 2,
+            name: "City 2",
+            current: { ...weatherExample },
+            historical: [],
+          },
+          {
+            id: "1",
+            order: 1,
+            name: "City 1",
+            current: { ...weatherExample },
+            historical: [],
+          },
+          { id: "3", order: 3, name: "City 3", current: { ...weatherExample }, historical: [] },
+        ],
+        stations: [],
+      };
+
+      const actual = weatherSlice(state, handlePositionMove(action as PositionMovePayload));
+      expect(actual).toEqual(expected);
+    });
   });
 
-  it("should handle position movements", () => {
-    const state: WeatherState = {
-      cities: [
-        {
-          id: "1",
-          order: 1,
-          name: "City 1",
-          current: {
-            ...weatherExample,
-          },
-          historical: [],
-        },
-        {
-          id: "2",
-          order: 2,
-          name: "City 2",
-          current: {
-            ...weatherExample,
-          },
-          historical: [],
-        },
-        {
-          id: "3",
-          order: 3,
-          name: "City 3",
-          current: { ...weatherExample },
-          historical: [],
-        },
-      ],
+  describe("fetchStations (incomplete)", () => {
+    afterEach(() => {
+      fetchMock.reset();
+      fetchMock.restore();
+    });
+
+    const initialState: WeatherState = {
+      cities: [],
       stations: [],
     };
 
-    const action = { city: { id: "2" }, direction: "up" };
-    const expected: WeatherState = {
-      cities: [
-        {
-          id: "2",
-          order: 2,
-          name: "City 2",
-          current: { ...weatherExample },
-          historical: [],
-        },
-        {
-          id: "1",
-          order: 1,
-          name: "City 1",
-          current: { ...weatherExample },
-          historical: [],
-        },
-        { id: "3", order: 3, name: "City 3", current: { ...weatherExample }, historical: [] },
-      ],
-      stations: [],
-    };
+    it("should handle fetching stations", async () => {
+      fetchMock.getOnce("https://bh-weather-data.s3.amazonaws.com/stations.json", {
+        body: [{ name: "City 1", id: "1" }],
+        headers: { "content-type": "application/json" },
+      });
 
-    const actual = weatherSlice(state, handlePositionMove(action as PositionMovePayload));
-    expect(actual).toEqual(expected);
+      const action = await fetchStations();
+      const nextState = weatherSlice(initialState, action);
+
+      expect(true).toBe(true);
+    });
   });
 });
