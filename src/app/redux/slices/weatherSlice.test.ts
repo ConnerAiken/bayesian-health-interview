@@ -1,5 +1,5 @@
 import { fetchStations } from "../services/weatherApi";
-import weatherSlice, { addCityToDashboard, handlePositionMove } from "./weatherSlice";
+import weatherSlice, { handlePositionMove } from "./weatherSlice";
 import { PositionMovePayload, WeatherReport, WeatherState } from "./weatherSlice.types";
 import fetchMock from "fetch-mock";
 

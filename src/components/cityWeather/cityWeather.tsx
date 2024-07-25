@@ -6,7 +6,7 @@ import { CityWeatherProps } from "./cityWeather.types";
 import "./cityWeather.scss";
 import Button from "react-bootstrap/esm/Button";
 import { useAppDispatch } from "../../app/redux/hooks";
-import { handlePositionMove } from "../../app/redux/slices/weatherSlice";
+import { handlePositionMove, handleRemove } from "../../app/redux/slices/weatherSlice";
 
 const CityWeather = (CityProps: CityWeatherProps) => {
   const dispatch = useAppDispatch();
@@ -20,6 +20,11 @@ const CityWeather = (CityProps: CityWeatherProps) => {
       }),
     );
   };
+
+  const handleRemoveBtn = () => {
+    dispatch(handleRemove(city.id));
+  };
+
   return (
     <Row className="city">
       <Col xs={4} className="city-sidebar">
@@ -32,6 +37,9 @@ const CityWeather = (CityProps: CityWeatherProps) => {
             &nbsp;
             <Button variant="secondary" onClick={handleMove.bind(this, "down")}>
               Move Down
+            </Button>
+            <Button variant="danger" onClick={handleRemoveBtn}>
+              Remove
             </Button>
           </Col>
         </Row>
