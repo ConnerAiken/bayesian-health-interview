@@ -16,7 +16,7 @@ export interface WeatherReport {
 }
 
 export interface City {
-  id: number;
+  id: string;
   order: number;
   name: string;
   current: WeatherReport;
@@ -25,11 +25,12 @@ export interface City {
 
 export interface Station {
   name: string;
-  id: number;
+  id: string;
 }
 
 export interface WeatherState {
   cities: City[];
   stations: Station[];
   stationsStatus: "awaiting" | "idle" | "loading" | "failed";
+  additionsStatus: "awaiting" | "idle" | "loading" | "failed";
 }

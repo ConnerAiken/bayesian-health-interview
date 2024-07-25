@@ -3,19 +3,30 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./header.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/redux/hooks";
-import { initializeWeatherDashboard, selectStations } from "../../app/redux/slices/weatherSlice";
+import {
+  addCityToDashboard,
+  initializeWeatherDashboard,
+  selectStations,
+  selectCities,
+} from "../../app/redux/slices/weatherSlice";
 
 const Header = () => {
+  const citySelectRef = useRef<HTMLSelectElement>(null);
   const dispatch = useAppDispatch();
   const stations = useAppSelector(selectStations);
+  const cities = useAppSelector(selectCities);
 
-  const handleCityAdd = (e: any) => {};
+  const handleCityAdd = () => {
+    dispatch(addCityToDashboard(citySelectRef.current?.value ?? ""));
+  };
 
   useEffect(() => {
     dispatch(initializeWeatherDashboard());
   }, []);
+
+  console.log(cities);
 
   return (
     <Row id="app-header">
@@ -26,11 +37,15 @@ const Header = () => {
         <Row>
           <Col xs={8} id="app-actions-inputs">
             {stations.length > 0 ? (
-              <Form.Select aria-label="Default select example" id="add-city-input">
+              <Form.Select id="add-city-input" ref={citySelectRef}>
                 <option>Open to select a city</option>
-                {stations.map((station) => (
-                  <option value={station.id}>{station.name}</option>
-                ))}
+                {stations
+                  .filter((station) => {
+                    return !cities.find((city) => city.id === station.id);
+                  })
+                  .map((station) => (
+                    <option value={station.id}>{station.name}</option>
+                  ))}
               </Form.Select>
             ) : (
               <p>Loading...</p>

@@ -7,3 +7,19 @@ export async function fetchStations() {
 
   return stations.json();
 }
+
+export async function fetchCityWeatherCurrent(cityId: string) {
+  const stations = await fetch(`${baseApiUrl}/current/${cityId}.json`, {
+    method: "GET",
+  });
+
+  return stations.json();
+}
+
+export async function fetchCityWeatherHistorical(cityId: string) {
+  const stations = await fetch(`${baseApiUrl}/historical/${cityId}.json`, {
+    method: "GET",
+  });
+
+  return stations.json();
+}
