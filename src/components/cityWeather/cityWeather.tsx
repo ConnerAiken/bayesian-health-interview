@@ -7,6 +7,7 @@ import "./cityWeather.scss";
 import Button from "react-bootstrap/esm/Button";
 import { useAppDispatch } from "../../app/redux/hooks";
 import { handlePositionMove, handleRemove } from "../../app/redux/slices/weatherSlice";
+import React from "react";
 
 const CityWeather = (CityProps: CityWeatherProps) => {
   const dispatch = useAppDispatch();
@@ -30,15 +31,27 @@ const CityWeather = (CityProps: CityWeatherProps) => {
       <Col xs={4} className="city-sidebar">
         <Row className="city-sidebar-row">
           <Col xs={12} className="city-information">
-            <h3>{city.name}</h3>
-            <Button variant="primary" onClick={handleMove.bind(this, "up")}>
+            <h3 data-testid={`city-weather-report-title-${city.id}`}>{city.name}</h3>
+            <Button
+              data-testid={`city-weather-report-move-up-${city.id}`}
+              variant="primary"
+              onClick={handleMove.bind(this, "up")}
+            >
               Move Up
             </Button>
             &nbsp;
-            <Button variant="secondary" onClick={handleMove.bind(this, "down")}>
+            <Button
+              data-testid={`city-weather-report-move-down-${city.id}`}
+              variant="secondary"
+              onClick={handleMove.bind(this, "down")}
+            >
               Move Down
             </Button>
-            <Button variant="danger" onClick={handleRemoveBtn}>
+            <Button
+              data-testid={`city-weather-report-remove-${city.id}`}
+              variant="danger"
+              onClick={handleRemoveBtn}
+            >
               Remove
             </Button>
           </Col>
@@ -68,7 +81,7 @@ const CityWeather = (CityProps: CityWeatherProps) => {
       <Col xs={8} className="city-historical-data">
         <h1>Historical Data</h1>
         {city.historical.map((historical) => (
-          <>
+          <React.Fragment key={"historical-" + historical.time}>
             <Table striped bordered hover size={"small"} className="historical-data-table">
               <tbody>
                 <tr>
@@ -84,7 +97,7 @@ const CityWeather = (CityProps: CityWeatherProps) => {
               </tbody>
             </Table>
             <hr />{" "}
-          </>
+          </React.Fragment>
         ))}
       </Col>
     </Row>

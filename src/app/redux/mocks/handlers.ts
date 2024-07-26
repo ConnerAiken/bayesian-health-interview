@@ -35,7 +35,7 @@ const mockWeatherReport: WeatherReport = {
 };
 
 const dynamicHandlers = [
-  // Mock a /current/:id/*.json request for each station
+  // Mock a /current/:id.json and /historical/:id.json request for each station
   ...mockStations.map((station) => {
     return rest.get(`${baseApiUrl}/current/${station.id}.json`, (req, res, ctx) => {
       return res(ctx.status(200), ctx.json({ ...mockWeatherReport }));
@@ -43,7 +43,17 @@ const dynamicHandlers = [
   }),
   ...mockStations.map((station) => {
     return rest.get(`${baseApiUrl}/historical/${station.id}.json`, (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json([mockWeatherReport, mockWeatherReport, mockWeatherReport]));
+      return res(
+        ctx.status(200),
+        ctx.json({
+          meta: {
+            source: "MSW Mocks",
+          },
+          data: [
+            [mockWeatherReport, mockWeatherReport, mockWeatherReport, mockWeatherReport, mockWeatherReport],
+          ],
+        }),
+      );
     });
   }),
 ];

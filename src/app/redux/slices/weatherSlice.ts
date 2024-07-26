@@ -19,6 +19,7 @@ export const initializeWeatherDashboard = createAsyncThunk("weather/initialize",
 export const addCityToDashboard = createAsyncThunk("weather/addCity", async (cityId: string) => {
   const currentWeather = await fetchCityWeatherCurrent(cityId);
   const historicalWeather = await fetchCityWeatherHistorical(cityId);
+
   // The value we return becomes the `fulfilled` action payload
   return {
     cityId,
@@ -54,13 +55,16 @@ export const weatherSlice = createSlice({
         state.stations = action.payload;
       })
       .addCase(addCityToDashboard.fulfilled, (state, action) => {
-        state.cities.push({
-          id: action.payload.cityId,
-          order: state.cities.length + 1,
-          name: state.stations.find((station) => station.id === action.payload.cityId)?.name || "Unknown",
-          current: action.payload.current,
-          historical: action.payload.historical,
-        });
+        state.cities = [
+          ...state.cities,
+          {
+            id: action.payload.cityId,
+            order: state.cities.length + 1,
+            name: state.stations.find((station) => station.id === action.payload.cityId)?.name || "Unknown",
+            current: action.payload.current,
+            historical: action.payload.historical,
+          },
+        ];
       });
   },
 });
