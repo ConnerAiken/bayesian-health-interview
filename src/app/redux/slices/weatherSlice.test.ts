@@ -1,5 +1,5 @@
 import { fetchStations } from "../services/weatherApi";
-import weatherSlice, { handlePositionMove, initializeWeatherDashboard } from "./weatherSlice";
+import weatherSlice, { handlePositionMove, handleRemove, initializeWeatherDashboard } from "./weatherSlice";
 import { PositionMovePayload, WeatherReport, WeatherState } from "./weatherSlice.types";
 import fetchMock from "fetch-mock";
 
@@ -85,6 +85,61 @@ describe("weatherSlice reducer", () => {
       };
 
       const actual = weatherSlice(state, handlePositionMove(action as PositionMovePayload));
+      expect(actual).toEqual(expected);
+    });
+
+    it("should handle removals", () => {
+      const state: WeatherState = {
+        cities: [
+          {
+            id: "1",
+            order: 1,
+            name: "City 1",
+            current: {
+              ...weatherExample,
+            },
+            historical: [],
+          },
+          {
+            id: "2",
+            order: 2,
+            name: "City 2",
+            current: {
+              ...weatherExample,
+            },
+            historical: [],
+          },
+          {
+            id: "3",
+            order: 3,
+            name: "City 3",
+            current: { ...weatherExample },
+            historical: [],
+          },
+        ],
+        stations: [],
+      };
+      const expected: WeatherState = {
+        cities: [
+          {
+            id: "1",
+            order: 1,
+            name: "City 1",
+            current: { ...weatherExample },
+            historical: [],
+          },
+          {
+            id: "3",
+            order: 3,
+            name: "City 3",
+            current: { ...weatherExample },
+            historical: [],
+          },
+        ],
+        stations: [],
+      };
+
+      const actual = weatherSlice(state, handleRemove("2"));
       expect(actual).toEqual(expected);
     });
   });

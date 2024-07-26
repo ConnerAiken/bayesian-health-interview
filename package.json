@@ -20,8 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test  --transformIgnorePatterns 'node_modules/(?!react-bootstrap)/ --setupFilesAfterEnv  './setupTests.ts'",
-    "test:debug": "react-scripts --inspect-brk test  --transformIgnorePatterns 'node_modules/(?!react-bootstrap)/ --runInBand --no-cache",
+    "test": "react-scripts test  --transformIgnorePatterns 'node_modules/(?!(react-bootstrap)/)' --setupFilesAfterEnv  './setupTests.ts'",
+    "test:debug": "react-scripts --inspect-brk test  --transformIgnorePatterns 'node_modules/(?!(react-bootstrap)/)' --runInBand --no-cache",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
