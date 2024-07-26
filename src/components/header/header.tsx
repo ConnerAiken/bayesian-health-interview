@@ -35,14 +35,16 @@ const Header = () => {
         <Row>
           <Col xs={8} id="app-actions-inputs">
             {stations.length > 0 ? (
-              <Form.Select id="add-city-input" ref={citySelectRef}>
+              <Form.Select id="add-city-input" data-testid="add-city-input" ref={citySelectRef}>
                 <option>Open to select a city</option>
                 {stations
                   .filter((station) => {
                     return !cities.find((city) => city.id === station.id);
                   })
                   .map((station) => (
-                    <option value={station.id}>{station.name}</option>
+                    <option key={station.id} value={station.id}>
+                      {station.name}
+                    </option>
                   ))}
               </Form.Select>
             ) : (
@@ -50,7 +52,7 @@ const Header = () => {
             )}
           </Col>
           <Col xs={4} id="app-actions-btns" className="flex align-items-end justify-content-center">
-            <Button variant="primary" onClick={handleCityAdd}>
+            <Button variant="primary" data-testid="add-city-btn" onClick={handleCityAdd}>
               Add
             </Button>
           </Col>

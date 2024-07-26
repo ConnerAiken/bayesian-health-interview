@@ -26,7 +26,7 @@ const CityWeather = (CityProps: CityWeatherProps) => {
   };
 
   return (
-    <Row className="city">
+    <Row className="city" data-testid="city-weather-report">
       <Col xs={4} className="city-sidebar">
         <Row className="city-sidebar-row">
           <Col xs={12} className="city-information">
